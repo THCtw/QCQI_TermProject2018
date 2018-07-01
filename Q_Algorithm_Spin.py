@@ -76,7 +76,7 @@ def simu_sec_I_C(n,theta,h):
     Ej=Ej-deltaPi[0]*deltaPi[n-1]
 
     for i in range(n, 2*n):
-        Ej=Ej+2*deltaPi[i]*h
+        Ej=Ej-2*deltaPi[i]*h
 
     Ej=Ej/total
 
