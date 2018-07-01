@@ -79,5 +79,3 @@ def simu_sec_I_C(n,theta,h):
         Ej=Ej-(2*deltaPi[i]*h/total)
 
     return Ej
-
-print(simu_sec_I_C(4,[.25/6,.25/2,3.14,3.14/4],1))
