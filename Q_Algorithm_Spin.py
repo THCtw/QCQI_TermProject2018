@@ -62,7 +62,7 @@ def simu_sec_I_C(n,theta,h):
     total = 0
     for i in result.get_counts(circuit):
         total = total+result.get_counts(circuit)[i]
-        for j in range(n):
+        for j in range(2*n):
             if i[j]=='1':
                 deltaPi[j]=deltaPi[j]-float(result.get_counts(circuit)[i])
             else:
