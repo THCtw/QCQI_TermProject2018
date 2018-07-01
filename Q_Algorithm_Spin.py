@@ -71,14 +71,12 @@ def simu_sec_I_C(n,theta,h):
     Ej = 0.0
 
     for i in range(n-1):
-        Ej = Ej-deltaPi[i]*deltaPi[i+1]
+        Ej = Ej-deltaPi[i]*deltaPi[i+1]/(total^2)
     
-    Ej=Ej-deltaPi[0]*deltaPi[n-1]
+    Ej=Ej-deltaPi[0]*deltaPi[n-1]/(total^2)
 
     for i in range(n, 2*n):
-        Ej=Ej-2*deltaPi[i]*h
-
-    Ej=Ej/total
+        Ej=Ej-2*deltaPi[i]*h/total
 
     return Ej
 
