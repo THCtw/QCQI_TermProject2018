@@ -14,8 +14,8 @@ end
 H1 = zeros(2^N);
 H2 = zeros(2^N);
 %H1
-for i = 1:N-1
-    if i == 1
+for i = 1:N
+    if i == 1 || i == N
         temp = Sz;
     else
         temp = I;
