@@ -1,14 +1,10 @@
 % Input number N
 N = input('Number N: ');
     
-% Creating identity matrix 
+% Creating operators
 I = [1, 0; 0, 1];
 Sz = [1, 0; 0, -1];
 Sx = [0, 1; 1, 0];
-I_N = I;
-for i = 1:N-1 
-    I_N = kron(I_N, I);
-end
 
 % Getting Hamiltonian 
 H1 = zeros(2^N);
@@ -52,9 +48,9 @@ E = zeros(1, 31);
 for i = 1:31
     h = (i-1)/10;
     H = -H1 - h*H2;
-    E(i) = min(eig(H));
+    E(i) = min(eig(H))/N;
 end
 
 %Plot 
 index = 1:31;
-plot ( (index-1)/10, E, 'o');
+plot ( (index-1)/10, E);
