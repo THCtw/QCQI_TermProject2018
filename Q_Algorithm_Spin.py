@@ -1,8 +1,8 @@
 def simu_sec_I_C(n,theta,h):
-    #import math
-    #import sys, time, getpass
-    #from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister, QISKitError
-    #from qiskit import available_backends, execute, register, get_backend
+    import math
+    import sys, time, getpass
+    from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister, QISKitError
+    from qiskit import available_backends, execute, register, get_backend
     k = range(n)
     f = range(1,n)
     q = QuantumRegister(n)
@@ -13,7 +13,6 @@ def simu_sec_I_C(n,theta,h):
     phifix = math.pi/2
 
     circuit = QuantumCircuit(q, c)
-
     circuit.u3(thetafix, phifix, 0, q[0])
 
     for i in f:
@@ -21,9 +20,10 @@ def simu_sec_I_C(n,theta,h):
 
     for i in k:
         circuit.u3(theta[i],0,0,q[i])
-
+    
     for i in k:
         circuit.barrier(q[i])
+
 
     for i in k:
         circuit.measure(q[i],c[i])
@@ -56,14 +56,16 @@ def simu_sec_I_C(n,theta,h):
     job = execute(circuit, backend)
     job.status
     result = job.result()
-    result.get_counts(circuit)
+    print(result.get_counts(circuit))
 
     deltaPi=[0.0]*2*n
     total = 0
     for i in result.get_counts(circuit):
         total = total+result.get_counts(circuit)[i]
         for j in range(2*n):
-            if i[j]=='1':
+            r = list(i)
+            r.reverse()
+            if r[j]=='1':
                 deltaPi[j]=deltaPi[j]-float(result.get_counts(circuit)[i])
             else:
                 deltaPi[j]=deltaPi[j]+float(result.get_counts(circuit)[i])
@@ -71,15 +73,13 @@ def simu_sec_I_C(n,theta,h):
     Ej = 0.0
 
     for i in range(n-1):
-        Ej = Ej - ( (deltaPi[i] * deltaPi[i+1]) / (total^2) )
+        Ej = Ej - ( (deltaPi[i]/total) * (deltaPi[i+1]/total) )
     
-    Ej=Ej - ( (deltaPi[0] * deltaPi[n-1]) / (total^2) )
-
+    Ej=Ej - ( (deltaPi[0]/total) * (deltaPi[n-1]/total) )
     for i in range(n, 2*n):
         Ej=Ej-(2*deltaPi[i]*h/total)
-
     return Ej/4
-#print(simu_sec_I_C(4,[0,0,0,0],1))
+#print(simu_sec_I_C(4,[3,.15,1,3.1],3))
 
 def simu_fir_I_C(n, theta,h):
     #import math
