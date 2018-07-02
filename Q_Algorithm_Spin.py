@@ -77,5 +77,6 @@ def simu_sec_I_C(n,theta,h):
 
     for i in range(n, 2*n):
         Ej=Ej-(2*deltaPi[i]*h/total)
-
+    #To have the same number with paper
+    Ej=Ej/4
     return Ej
