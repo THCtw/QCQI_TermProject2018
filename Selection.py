@@ -18,7 +18,7 @@ E1 = simu_sec_I_C(N, theta, h)
 theta_i = [0.0]
 for i in range(2**N-1):
     theta_i.append( (i+1)*2*math.pi/(2**N) )
-#print(theta_i)
+
 # Searching theta(i) one by one for the smallest eigenvalue
 for i in range(N):
     tempTheta_i1 = 0.0
@@ -27,12 +27,18 @@ for i in range(N):
     for j in range(2**N):
         theta[i] = theta_i[j]
         temp = simu_sec_I_C(N, theta, h)
+
         if temp < E1:
             E2 = E1
             E1 = temp
             tempTheta_i2 = tempTheta_i1
             tempTheta_i1 = theta[i]
+        elif temp < E2:
+            E2 = temp
+            tempTheta_i2 = theta[i]
+
     E1, theta[i] = search_Theta_i(N, theta, h, E1, E2, i, tempTheta_i1, tempTheta_i2)
+
 # Result
 print("\n")
 print ("The ground state energy is: %f\n" %E1)

@@ -9,10 +9,10 @@ def search_Theta_i(N, theta, h, E1, E2, i, theta_i1, theta_i2):
     th1 = theta_i1
     th2 = theta_i2
     d = (e2-e1)/e1
-    limit = 0.1
+    limit = 0.01
     
     # Stop searching when d < limit
-    while d > limit:
+    while abs(d) > limit:
         theta[i] = (th1+th2)/2
         etemp = simu_sec_I_C(N, theta, h)
         if etemp < E1:
