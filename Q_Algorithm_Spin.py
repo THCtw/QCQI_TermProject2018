@@ -77,7 +77,7 @@ def simu_sec_I_C(n,theta,h):
     
     Ej=Ej - ( (deltaPi[0]/total) * (deltaPi[n-1]/total) )
     for i in range(n, 2*n):
-        Ej=Ej-(2*deltaPi[i]*h/total)
+        Ej=Ej-(deltaPi[i]*h/total)
     return Ej/4
 #print(simu_sec_I_C(4,[3,.15,1,3.1],3))
 
@@ -148,7 +148,7 @@ def simu_fir_I_C(n, theta,h):
     Ej=Ej - ( (deltaPi[0]/total) * (deltaPi[n-1]/total)  )
 
     for i in range(n, 2*n):
-        Ej=Ej-(2*deltaPi[i]*h/total)
+        Ej=Ej-(deltaPi[i]*h/total)
 
     return Ej/4
 
@@ -288,7 +288,7 @@ def ibm_sec_I_C(n, theta, h):
 
 
     for i in range(n):
-        Ej=Ej-(2*deltaPi[i]*h/total)
+        Ej=Ej-(deltaPi[i]*h/total)
     
     return Ej/4
 
@@ -418,6 +418,6 @@ def ibm_fir_I_C(n, theta, h):
 
 
     for i in range(n):
-        Ej=Ej-(2*deltaPi[i]*h/total)
+        Ej=Ej-(deltaPi[i]*h/total)
     
     return Ej/4
