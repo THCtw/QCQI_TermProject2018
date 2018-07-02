@@ -7,12 +7,13 @@ N = int(input("Number N: "))
 print("N = %i\n" %N)
 Theta = 0.0
 theta = [Theta] * N
-h = 0
+h = 3.0
 
 # Calculating theta(i)=0
 E1 = 0.0    # Smallest eigenvalue
 E2 = 0.0    # Second small eigenvalue
 E1 = simu_sec_I_C(N, theta, h)
+print(E1)
 
 # Searching the smallest eigenvalue theta(i) one by one
 theta_i = [0.0]
