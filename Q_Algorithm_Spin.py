@@ -1,16 +1,20 @@
+import math
+import sys, time, getpass
+from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister, QISKitError
+from qiskit import available_backends, execute, register, get_backend
 def simu_sec_I_C(n,theta,h):
-    import math
-    import sys, time, getpass
-    from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister, QISKitError
-    from qiskit import available_backends, execute, register, get_backend
+    #import math
+    #import sys, time, getpass
+    #from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister, QISKitError
+    #from qiskit import available_backends, execute, register, get_backend
     k = range(n)
     f = range(1,n)
     q = QuantumRegister(n)
     c = ClassicalRegister(2*n)
 
 
-    thetafix = math.pi/6
-    phifix = math.pi/2
+    thetafix = 0.0    #math.pi/6
+    phifix = 0.0    #math.pi/2
 
     circuit = QuantumCircuit(q, c)
     circuit.u3(thetafix, phifix, 0, q[0])
@@ -56,7 +60,7 @@ def simu_sec_I_C(n,theta,h):
     job = execute(circuit, backend)
     job.status
     result = job.result()
-    print(result.get_counts(circuit))
+    #print(result.get_counts(circuit))
 
     deltaPi=[0.0]*2*n
     total = 0
@@ -79,8 +83,6 @@ def simu_sec_I_C(n,theta,h):
     for i in range(n, 2*n):
         Ej=Ej-(deltaPi[i]*h/total)
     return Ej/4
-#print(simu_sec_I_C(4,[3,.15,1,3.1],3))
-
 
 def simu_fir_I_C(n, theta,h):
     #import math
@@ -159,7 +161,7 @@ def ibm_sec_I_C(n, theta, h):
     #from qiskit import available_backends, execute, register, get_backend
     #import Qconfig
     try:
-        sys.path.append("../../") # go to parent dir
+        sys.path.append("../qiskit-tutorial") # go to parent dir
         qx_config = {
             "APItoken": Qconfig.APItoken,
             "url": Qconfig.config['url']}
@@ -208,6 +210,7 @@ def ibm_sec_I_C(n, theta, h):
             key=lambda x: x['pending_jobs'])
         return best['name']
     backend = lowest_pending_jobs()
+    backend = 'ibmqx2'
     print("the best backend is " + backend)
     shots = 1024           # Number of shots to run the program (experiment); maximum is 8192 shots.
     max_credits = 3          # Maximum number of credits to spend on executions. 
@@ -291,6 +294,7 @@ def ibm_sec_I_C(n, theta, h):
         Ej=Ej-(deltaPi[i]*h/total)
     
     return Ej/4
+#print( ibm_sec_I_C(1, [0, 0, 0, 0], 0) )
 
 def ibm_fir_I_C(n, theta, h):
     #import math
@@ -299,7 +303,7 @@ def ibm_fir_I_C(n, theta, h):
     #from qiskit import available_backends, execute, register, get_backend
     #import Qconfig
     try:
-        sys.path.append("../../") # go to parent dir
+        sys.path.append("../qiskit-tutorial") # go to parent dir
         qx_config = {
             "APItoken": Qconfig.APItoken,
             "url": Qconfig.config['url']}
